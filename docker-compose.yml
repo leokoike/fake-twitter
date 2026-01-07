@@ -1,0 +1,47 @@
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:16-alpine
+    container_name: fake_twitter_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: fake_twitter
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      retries: 5
+    networks:
+      - fake_twitter_network
+
+  # Fake Twitter API
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fake_twitter_api
+    environment:
+      DATABASE_URL: postgresql+asyncpg://postgres:postgres@db:5432/fake_twitter
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./src:/app/src
+      - ./alembic:/app/alembic
+      - ./alembic.ini:/app/alembic.ini
+      - ./gunicorn.conf.py:/app/gunicorn.conf.py
+    depends_on:
+      - db
+    networks:
+      - fake_twitter_network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  fake_twitter_network:
+    driver: bridge
