@@ -102,7 +102,7 @@ uv run gunicorn fake_twitter.main:app -c gunicorn.conf.py
 ### With Uvicorn (Development)
 
 ```bash
-uv runuvicorn fake_twitter.main:app --reload --host 0.0.0.0 --port 8000
+uv run uvicorn fake_twitter.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 ## API Documentation

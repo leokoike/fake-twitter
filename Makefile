@@ -36,7 +36,7 @@ docker-up: ## Start containers with docker-compose
 	docker-compose up -d
 
 docker-down: ## Stop and remove containers
-	docker-compose down
+	docker-compose down -t 0
 
 docker-logs: ## Show container logs
 	docker-compose logs -f
@@ -77,3 +77,6 @@ docker-clean: ## Stop containers and remove volumes
 	docker-compose down -v
 
 clean-all: clean docker-clean ## Clean everything
+
+validate: ## Run all validations (lint, type check, tests)
+	uv run pre-commit run --all-files
