@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from typing import Optional, List
 from uuid import UUID
 
-from fake_twitter.domain.entities.tweet import Tweet
+from src.fake_twitter.domain.entities.tweet import Tweet
 
 
 class TweetRepository(ABC):
@@ -15,7 +15,9 @@ class TweetRepository(ABC):
         pass
 
     @abstractmethod
-    async def get_by_user_id(self, user_id: UUID, skip: int = 0, limit: int = 100) -> List[Tweet]:
+    async def get_by_user_id(
+        self, user_id: UUID, skip: int = 0, limit: int = 100
+    ) -> List[Tweet]:
         pass
 
     @abstractmethod

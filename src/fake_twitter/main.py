@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from fake_twitter.infrastructure.api import router as api_router
+from src.fake_twitter.infrastructure.api import router as api_router
 
 
 def create_app() -> FastAPI:
@@ -12,7 +12,7 @@ def create_app() -> FastAPI:
     )
 
     app.add_middleware(
-        CORSMiddleware,
+        CORSMiddleware,  # ty: ignore
         allow_origins=["*"],
         allow_credentials=True,
         allow_methods=["*"],

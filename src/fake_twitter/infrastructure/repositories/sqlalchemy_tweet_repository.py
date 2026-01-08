@@ -3,9 +3,9 @@ from uuid import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
-from fake_twitter.domain.entities.tweet import Tweet
-from fake_twitter.domain.repositories.tweet_repository import TweetRepository
-from fake_twitter.infrastructure.database.models import TweetModel
+from src.fake_twitter.domain.entities.tweet import Tweet
+from src.fake_twitter.domain.repositories.tweet_repository import TweetRepository
+from src.fake_twitter.infrastructure.database.models import TweetModel
 
 
 class SQLAlchemyTweetRepository(TweetRepository):
@@ -26,9 +26,14 @@ class SQLAlchemyTweetRepository(TweetRepository):
         tweet_model = result.scalar_one_or_none()
         return Tweet.model_validate(tweet_model) if tweet_model else None
 
-    async def get_by_user_id(self, user_id: UUID, skip: int = 0, limit: int = 100) -> List[Tweet]:
+    async def get_by_user_id(
+        self, user_id: UUID, skip: int = 0, limit: int = 100
+    ) -> List[Tweet]:
         result = await self.session.execute(
-            select(TweetModel).where(TweetModel.user_id == user_id).offset(skip).limit(limit)
+            select(TweetModel)
+            .where(TweetModel.user_id == user_id)
+            .offset(skip)
+            .limit(limit)
         )
         tweet_models = result.scalars().all()
         return [Tweet.model_validate(tweet_model) for tweet_model in tweet_models]

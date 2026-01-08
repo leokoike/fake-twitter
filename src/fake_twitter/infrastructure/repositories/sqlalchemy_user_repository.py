@@ -3,9 +3,9 @@ from uuid import UUID
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
-from fake_twitter.domain.entities.user import User
-from fake_twitter.domain.repositories.user_repository import UserRepository
-from fake_twitter.infrastructure.database.models import UserModel
+from src.fake_twitter.domain.entities.user import User
+from src.fake_twitter.domain.repositories.user_repository import UserRepository
+from src.fake_twitter.infrastructure.database.models import UserModel
 
 
 class SQLAlchemyUserRepository(UserRepository):
@@ -34,9 +34,7 @@ class SQLAlchemyUserRepository(UserRepository):
         return User.model_validate(user_model) if user_model else None
 
     async def get_all(self, skip: int = 0, limit: int = 100) -> List[User]:
-        result = await self.session.execute(
-            select(UserModel).offset(skip).limit(limit)
-        )
+        result = await self.session.execute(select(UserModel).offset(skip).limit(limit))
         user_models = result.scalars().all()
         return [User.model_validate(user_model) for user_model in user_models]
 

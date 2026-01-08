@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from typing import Optional, List
 from uuid import UUID
 
-from fake_twitter.domain.entities.user import User
+from src.fake_twitter.domain.entities.user import User
 
 
 class UserRepository(ABC):

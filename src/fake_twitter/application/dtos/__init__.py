@@ -3,7 +3,7 @@ from .tweet_dtos import TweetCreateDTO, TweetUpdateDTO, TweetResponseDTO
 
 __all__ = [
     "UserCreateDTO",
-    "UserUpdateDTO", 
+    "UserUpdateDTO",
     "UserResponseDTO",
     "TweetCreateDTO",
     "TweetUpdateDTO",

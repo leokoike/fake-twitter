@@ -1,13 +1,13 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import Depends
 
-from fake_twitter.application.use_cases.tweet_use_cases import TweetUseCases
-from fake_twitter.application.use_cases.user_use_cases import UserUseCases
-from fake_twitter.infrastructure.database.connection import get_db
-from fake_twitter.infrastructure.repositories.sqlalchemy_tweet_repository import (
+from src.fake_twitter.application.use_cases.tweet_use_cases import TweetUseCases
+from src.fake_twitter.application.use_cases.user_use_cases import UserUseCases
+from src.fake_twitter.infrastructure.database.connection import get_db
+from src.fake_twitter.infrastructure.repositories.sqlalchemy_tweet_repository import (
     SQLAlchemyTweetRepository,
 )
-from fake_twitter.infrastructure.repositories.sqlalchemy_user_repository import (
+from src.fake_twitter.infrastructure.repositories.sqlalchemy_user_repository import (
     SQLAlchemyUserRepository,
 )
 

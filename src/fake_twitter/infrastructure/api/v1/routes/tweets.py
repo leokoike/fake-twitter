@@ -1,13 +1,13 @@
 from typing import List
 from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException, status
-from fake_twitter.application.use_cases.tweet_use_cases import TweetUseCases
-from fake_twitter.application.dtos.tweet_dtos import (
+from src.fake_twitter.application.use_cases.tweet_use_cases import TweetUseCases
+from src.fake_twitter.application.dtos.tweet_dtos import (
     TweetCreateDTO,
     TweetUpdateDTO,
     TweetResponseDTO,
 )
-from fake_twitter.infrastructure.api.dependencies import get_tweet_use_cases
+from src.fake_twitter.infrastructure.api.dependencies import get_tweet_use_cases
 
 
 router = APIRouter(prefix="/tweets", tags=["tweets"])

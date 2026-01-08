@@ -1,0 +1,39 @@
+repos:
+  - repo: local
+    hooks:
+      # 1. Fast Linting & Formatting with Ruff
+      - id: ruff-lint
+        name: ruff lint
+        entry: uv run ruff check --fix
+        language: system
+        types: [python]
+
+      - id: ruff-format
+        name: ruff format
+        entry: uv run ruff format
+        language: system
+        types: [python]
+
+      # 2. Type Checking
+      - id: ty
+        name: ty
+        entry: uv run ty check
+        language: system
+        types: [python]
+        pass_filenames: false
+
+      # 3. Security Scan
+      - id: bandit
+        name: bandit
+        entry: uv run bandit -r src/
+        language: system
+        types: [python]
+        pass_filenames: false
+      
+      # 4. Test Execution with Coverage
+      - id: pytest
+        name: pytest
+        entry: uv run pytest --cov=src --cov-report=term-missing
+        language: system
+        types: [python]
+        pass_filenames: false

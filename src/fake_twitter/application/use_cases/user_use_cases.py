@@ -1,9 +1,9 @@
 from typing import List, Optional
 from uuid import UUID
 
-from fake_twitter.domain.entities.user import User
-from fake_twitter.domain.repositories.user_repository import UserRepository
-from fake_twitter.application.dtos.user_dtos import UserCreateDTO, UserUpdateDTO
+from src.fake_twitter.domain.entities.user import User
+from src.fake_twitter.domain.repositories.user_repository import UserRepository
+from src.fake_twitter.application.dtos.user_dtos import UserCreateDTO, UserUpdateDTO
 
 
 class UserUseCases:
@@ -28,16 +28,18 @@ class UserUseCases:
     async def get_all_users(self, skip: int = 0, limit: int = 100) -> List[User]:
         return await self.user_repository.get_all(skip, limit)
 
-    async def update_user(self, user_id: UUID, user_dto: UserUpdateDTO) -> Optional[User]:
+    async def update_user(
+        self, user_id: UUID, user_dto: UserUpdateDTO
+    ) -> Optional[User]:
         user = await self.user_repository.get_by_id(user_id)
         if not user:
             return None
-        
+
         if user_dto.full_name is not None:
             user.full_name = user_dto.full_name
         if user_dto.bio is not None:
             user.bio = user_dto.bio
-        
+
         return await self.user_repository.update(user)
 
     async def delete_user(self, user_id: UUID) -> bool:
@@ -47,7 +49,7 @@ class UserUseCases:
         user = await self.user_repository.get_by_id(user_id)
         if not user:
             return None
-        
+
         user.follow()
         return await self.user_repository.update(user)
 
@@ -55,6 +57,6 @@ class UserUseCases:
         user = await self.user_repository.get_by_id(user_id)
         if not user:
             return None
-        
+
         user.unfollow()
         return await self.user_repository.update(user)

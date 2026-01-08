@@ -28,7 +28,7 @@ FROM python:3.13-slim
 
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONPATH="/app/src" \
+    PYTHONPATH="/app" \
     PATH="/root/.local/bin:$PATH"
 
 WORKDIR /app
